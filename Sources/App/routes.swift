@@ -67,4 +67,6 @@ func routes(_ app: Application) throws {
     app.get("todos", use: todoController.index)
     app.post("todos", use: todoController.create)
     app.on(.DELETE, "todos", ":todoID", use: todoController.delete)
+    
+    try app.register(collection: UserController())
 }
