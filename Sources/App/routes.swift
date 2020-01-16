@@ -25,6 +25,17 @@ func routes(_ app: Application) throws {
         }
         return "Hello \(name)"
     }
+    
+    /*
+     POST http://localhost:8080/bottles/
+     {
+        "count" : 99
+     }
+     */
+    app.post("bottles") { (req) -> String in
+        let bottles = try req.content.decode(Bottles.self)
+        return "There we \(bottles.count) bottles"
+    }
 
     let todoController = TodoController()
     app.get("todos", use: todoController.index)
