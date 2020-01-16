@@ -17,6 +17,14 @@ func routes(_ app: Application) throws {
         }
         return "There were \(count) bottles on the wall"
     }
+    
+    //hello/Tim -> Hello Tim
+    app.get("hello", ":name") { req -> String in
+        guard let name = req.parameters.get("name", as: String.self) else {
+            throw Abort(.badRequest)
+        }
+        return "Hello \(name)"
+    }
 
     let todoController = TodoController()
     app.get("todos", use: todoController.index)
