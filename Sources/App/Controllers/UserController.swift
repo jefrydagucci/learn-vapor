@@ -20,11 +20,12 @@ struct UserController: RouteCollection {
      }
      */
     func boot(routes: RoutesBuilder) throws {
-        routes.post("api", "users", use: createHandler)
-        routes.get("api", "users", use: getAllHandler)
-        routes.get("api", "users", ":userID", use: getHandler)
-        routes.delete("api", "users", ":userID", use: deleteHandler)
-        routes.put("api", "users", ":userID", use: updateHandler)
+        let userRoutes = routes.grouped("api", "users")
+        userRoutes.post(use: createHandler)
+        userRoutes.get(use: getAllHandler)
+        userRoutes.get(":userID", use: getHandler)
+        userRoutes.delete(":userID", use: deleteHandler)
+        userRoutes.put(":userID", use: updateHandler)
     }
     
     func createHandler(req: Request) throws -> EventLoopFuture<User> {
