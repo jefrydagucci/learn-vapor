@@ -36,6 +36,18 @@ func routes(_ app: Application) throws {
         let bottles = try req.content.decode(Bottles.self)
         return "There we \(bottles.count) bottles"
     }
+    
+    /*
+     Accept and return JSON
+     POST http://localhost:8080/user-info/
+     {
+        "name" : "Tim",
+        "age": 17
+     }
+     */
+    app.post("user-info") { (req) -> UserInfo in
+        return try req.content.decode(UserInfo.self)
+    }
 
     let todoController = TodoController()
     app.get("todos", use: todoController.index)
