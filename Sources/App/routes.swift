@@ -11,11 +11,11 @@ func routes(_ app: Application) throws {
     }
     
     //bottles/99
-    app.get("bottles", ":count") { req -> String in
+    app.get("bottles", ":count") { req -> Bottles in
         guard let count = req.parameters.get("count", as: Int.self) else {
             throw Abort(.badRequest)
         }
-        return "There were \(count) bottles on the wall"
+        return Bottles(count: count)
     }
     
     //hello/Tim -> Hello Tim
