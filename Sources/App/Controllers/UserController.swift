@@ -22,6 +22,7 @@ struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.post("api", "users", use: createHandler)
         routes.get("api", "users", use: getAllHandler)
+        routes.get("api", "users", ":userID", use: getHandler)
     }
     
     func createHandler(req: Request) throws -> EventLoopFuture<User> {
@@ -44,6 +45,18 @@ struct UserController: RouteCollection {
     */
     func getAllHandler(req: Request) throws -> EventLoopFuture<[User]> {
         return User.query(on: req.db).all()
+    }
+    
+    /*
+    GET http://localhost:8080/api/users/1
+     {
+        "name" : "Jefry",
+        "username": "jefrydagucci"
+     }
+    */
+    func getHandler(req: Request) throws -> EventLoopFuture<User> {
+        return User.find(req.parameters.get("userID"), on: req.db)
+            .unwrap(or: Abort(.notFound))
     }
 }
 
