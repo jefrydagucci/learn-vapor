@@ -16,10 +16,10 @@ final class User: Model, Content {
     @ID(key: "id")
     var id: Int?
     
-    @ID(key: "name")
+    @Field(key: "name")
     var name: String
     
-    @ID(key: "username")
+    @Field(key: "username")
     var username: String
 
     init() { }

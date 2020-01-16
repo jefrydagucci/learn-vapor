@@ -37,16 +37,30 @@ func routes(_ app: Application) throws {
         return "There we \(bottles.count) bottles"
     }
     
+//    /*
+//     Accept and return JSON
+//     POST http://localhost:8080/user-info/
+//     {
+//        "name" : "Tim",
+//        "age": 17
+//     }
+//     */
+//    app.post("user-info") { (req) -> UserInfo in
+//        return try req.content.decode(UserInfo.self)
+//    }
+    
     /*
-     Accept and return JSON
-     POST http://localhost:8080/user-info/
-     {
-        "name" : "Tim",
-        "age": 17
-     }
-     */
-    app.post("user-info") { (req) -> UserInfo in
-        return try req.content.decode(UserInfo.self)
+    Accept and return JSON
+    POST http://localhost:8080/user-info/
+    {
+       "name" : "Tim",
+       "age": 17
+    }
+    */
+    app.post("user-info") { (req) -> UserMessage in
+        let user = try req.content.decode(UserInfo.self)
+        let message = "Hello \(user.name), you are \(user.age)"
+        return UserMessage(message: message)
     }
 
     let todoController = TodoController()

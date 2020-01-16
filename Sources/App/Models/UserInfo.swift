@@ -15,3 +15,7 @@ struct UserInfo: Content {
     let age: Int
 }
 
+struct UserMessage: Content {
+    let message: String
+}
+
